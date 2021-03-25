@@ -1,0 +1,102 @@
+.App {
+  display: flex;
+  justify-content:space-around;
+  align-items:center;
+  height: 500px;
+
+}
+
+.settings {
+  border: 2px solid skyblue;
+  border-radius: 10px;
+  width: 450px;
+  height: 200px;
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
+  background-color: skyblue;
+
+}
+
+input {
+  width: 120px;
+  height: 25px;
+  text-align: center;
+  font-size: 25px;
+  margin-top: 40px;
+  font-weight: bold;
+  margin-left: 50px;
+  border-color: darkslategrey;
+  outline: none;
+  border-radius: 5px;
+}
+
+.containBlock {
+  
+  background-color: darkslategrey;
+  height: 400px;
+  width: 500px;
+  border: 2px solid skyblue;
+  border-radius: 10px;
+
+  
+}
+
+.scoreboard {
+  border: 2px solid skyblue;
+  border-radius: 10px;
+  width: 450px;
+  height: 200px;
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
+  background-color: skyblue;
+  
+}
+
+button {
+  background-color: skyblue;
+  width:130px;
+  height: 70px;
+  border-radius: 10px;
+  border:2px solid skyblue;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.buttons {
+  border: 2px solid skyblue;
+  border-radius: 10px;
+  width: 450px;
+  height: 130px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items:center;
+  
+}
+
+.value {
+  font-size: 100px;
+  padding-top: 30px;
+}
+
+.message {
+  padding-top: 50px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.errortext {
+  padding-top: 70px;
+  font-size: 40px;
+  font-weight: bold; 
+  color:red
+}
+
+.spanValue {
+  font-size: 20px;
+  font-weight: bold;
+}
