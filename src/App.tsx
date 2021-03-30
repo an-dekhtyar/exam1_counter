@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 import {Display} from './Display'
 import {Settings} from './Settings'
@@ -19,6 +19,46 @@ function App() {
     const [error, setError] = useState<boolean>(false)
     const [version, setVersion] = useState<boolean>(true)
     const [twoWindowVersion, setTwoWindowVersion] = useState<boolean>(false)
+
+    useEffect(()=>{
+        let valueString = localStorage.getItem('counterValue')
+        if (valueString) {
+            let newValue = JSON.parse(valueString)
+            setNum(newValue)
+        }
+    }, [])
+
+    useEffect(()=>{
+        localStorage.setItem('counterValue', JSON.stringify(num))
+    }, [num])
+
+
+    useEffect(()=>{
+        let startValue = localStorage.getItem('minValue')
+        if (startValue) {
+            let newStartValue = JSON.parse(startValue)
+            setStartValue(newStartValue)
+        }
+    },[])
+
+    useEffect(()=>{
+        localStorage.setItem('minValue', JSON.stringify(startValue))
+    },[startValue])
+
+
+
+    useEffect(()=>{
+        let maxValue = localStorage.getItem('maxValue')
+        if (maxValue) {
+            let newMaxValue = JSON.parse(maxValue)
+            setMaxValue(newMaxValue)
+        }
+    },[])
+
+    useEffect(()=>{
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+    },[maxValue])
+
 
 
     const incHandler = () => {
