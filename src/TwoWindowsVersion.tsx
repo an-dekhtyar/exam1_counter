@@ -2,70 +2,41 @@ import {Settings} from "./Settings";
 import {Button} from "./Button";
 import {Display} from "./Display";
 import React from "react";
-
-export type TwoWindowsVersionType = {
-    startValue: number
-    maxValue: number
-    error: boolean
-    onChangeStartValue: (newStartValue: number) => void
-    onChangeMaxValue: (newStartValue: number) => void
-    setHandler: () => void
-    disablSet: boolean
-    num: number
-    disablInc: boolean
-    message: boolean
-    resetHandler: () => void
-    disablRecet: boolean
-    incHandler:()=>void
-}
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "./redux/store";
+import { increment, InitialStateType, reset, set } from "./redux/reducer";
 
 
-export const TwoWindowsVersion = (props:TwoWindowsVersionType) => {
+export const TwoWindowsVersion = () => {
 
-    const {
-        startValue, maxValue,
-        error, onChangeStartValue,
-        onChangeMaxValue, setHandler,
-        disablSet, num,
-        disablInc, message,
-        resetHandler, disablRecet,incHandler
-    } = props
+    const dispatch = useDispatch()
+    const counter = useSelector<RootStateType,InitialStateType>(state => state.counter)
+
+    const setHandler = () => {
+        dispatch(set())
+    }
+    const incHandler = () => {
+        dispatch(increment())
+    }
+    const resetHandler = () => {
+        dispatch(reset())
+    }
 
 
     return (<>
         <div className="containBlock">
-            <Settings
-                startValue={startValue}
-                maxValue={maxValue}
-                error={error}
-                onChangeStartValue={onChangeStartValue}
-                onChangeMaxValue={onChangeMaxValue}
-            />
+            <Settings/>
             <div className={"buttons"}>
-                <Button title={"SET"}
-                        onClickHandler={setHandler}
-                        disable={disablSet}
-                />
+                <Button title={"SET"} onClickHandler={setHandler} disable={counter.disablSet}/>
             </div>
         </div>
         <div className="containBlock">
             <Display
-                value={num}
-                disablInc={disablInc}
-                disablSet={disablSet}
-                error={error}
-                message={message}
             />
             <div className={"buttons"}>
-                <Button
-                    title={"INC"}
-                    onClickHandler={incHandler}
-                    disable={disablInc}
+                <Button title={"INC"} onClickHandler={incHandler} disable={counter.disablInc}
                 />
-                <Button
-                    title={"RESET"}
-                    onClickHandler={resetHandler}
-                    disable={disablRecet}
+                <Button title={"RESET"} onClickHandler={resetHandler} disable={counter.disablReset}
                 />
 
             </div>

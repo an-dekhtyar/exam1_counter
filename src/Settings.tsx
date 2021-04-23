@@ -1,29 +1,31 @@
 import React, {ChangeEvent, ChangeEventHandler, useState} from 'react';
 
 import {stat} from "fs";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStateType } from './redux/store';
+import { changeMaxValue, changeStartValue, InitialStateType } from './redux/reducer';
 
 export type SettingsType = {
-    startValue: number
-    maxValue: number
-    onChangeMaxValue:(newMaxValue:number)=>void
-    onChangeStartValue:(newStartValue:number)=>void
-    error:boolean
+
 }
 
 
-export const Settings: React.FC<SettingsType> = (props) => {
+export const Settings: React.FC = () => {
+
+    const dispatch = useDispatch()
+    const counter = useSelector<RootStateType,InitialStateType>(state => state.counter)
 
     const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.onChangeMaxValue(e.currentTarget.valueAsNumber)
+        dispatch(changeMaxValue(e.currentTarget.valueAsNumber))
     }
 
     const onChangeStartValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.onChangeStartValue(e.currentTarget.valueAsNumber)
+        dispatch(changeStartValue(e.currentTarget.valueAsNumber))
     }
 
     const errorStyle = {
-        backgroundColor:props.error ? "pink" : "",
-        borderColor:props.error ? "red" : ""
+        backgroundColor:counter.error ? "pink" : "",
+        borderColor:counter.error ? "red" : ""
     }
 
     return (
@@ -33,7 +35,7 @@ export const Settings: React.FC<SettingsType> = (props) => {
                 <input
                     style={errorStyle}
                     type="number"
-                    value={props.maxValue}
+                    value={counter.maxValue}
                     min={0}
                     onChange={onChangeMaxValueHandler}
                 />
@@ -43,7 +45,7 @@ export const Settings: React.FC<SettingsType> = (props) => {
                 <input
                     style={errorStyle}
                     type="number"
-                    value={props.startValue}
+                    value={counter.startValue}
                     min={0}
                     onChange={onChangeStartValueHandler}
                 />

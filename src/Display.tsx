@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
+import { InitialStateType } from './redux/reducer';
+import { RootStateType } from './redux/store';
 
 type DisplayType = {
-    value: number
-    disablInc: boolean
-    disablSet: boolean
-    error: boolean
-    message: boolean
 
 }
 
-export const Display: React.FC<DisplayType> = (props) => {
+export const Display: React.FC = () => {
 
-    const { disablSet, disablInc, value, error, message } = props
+
+    const counter = useSelector<RootStateType,InitialStateType>(state => state.counter)
+
+
 
     let onstyle = {
-        color: disablInc ? "red" : "black"
+        color: counter.disablInc ? "red" : "black"
     }
 
     return (
-        message
+        counter.message
             ?
             <div className={"scoreboard"}>
-                {error ?
+                {counter.error ?
                     <div className="errortext">Incorrect value!</div>
                     :
                     <div className="message">Enter values and press 'SET'</div>
@@ -31,7 +32,7 @@ export const Display: React.FC<DisplayType> = (props) => {
 
             :
             <div className={"scoreboard"}>
-                <div style={onstyle} className={"value"}>{value}</div>
+                <div style={onstyle} className={"value"}>{counter.num}</div>
             </div>
 
 

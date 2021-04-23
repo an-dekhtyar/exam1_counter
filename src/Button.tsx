@@ -12,12 +12,12 @@ export const Button:React.FC<ButtonType> = (props) => {
     const {onClickHandler, disable, title } = props
 
     return (
-     
-         <div >
-             <button onClick={onClickHandler} disabled={disable} >{title}</button>
-         </div>
-        
-        
-    
+
+        <div >
+            <button onClick={onClickHandler} disabled={disable} >{title}</button>
+        </div>
+
+
+
     )
 }

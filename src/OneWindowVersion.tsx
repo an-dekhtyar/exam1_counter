@@ -2,89 +2,61 @@ import {Settings} from "./Settings";
 import {Button} from "./Button";
 import {Display} from "./Display";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "./redux/store";
+import { changeVersion2, increment, InitialStateType, reset, set2 } from "./redux/reducer";
 
 
-export type OneWindowVersionType = {
-    twoWindowVersion:boolean
-    num:number
-    disablInc:boolean
-    disablSet:boolean
-    error:boolean
-    message:boolean
-    changeTwoWindowVersion:()=>void
-    incHandler:()=>void
-    resetHandler:()=>void
-    disablRecet:boolean
-    startValue:number
-    maxValue:number
-    onChangeStartValue:(newStartValue:number)=>void
-    onChangeMaxValue:(newMaxValue:number)=>void
-    setHandlerTwoWindow:()=>void
-}
 
 
-export const OneWindowVersion = (props:OneWindowVersionType) => {
+export const OneWindowVersion = () => {
 
-    const {twoWindowVersion,
-        num,
-        disablInc,
-        disablSet,
-        error,
-        message,
-        changeTwoWindowVersion,
-        incHandler,
-    resetHandler,
-        disablRecet,
-    startValue,
-    maxValue,
-    onChangeStartValue,
-        onChangeMaxValue,
-        setHandlerTwoWindow,} = props
+    const dispatch = useDispatch()
+    const counter = useSelector<RootStateType,InitialStateType>(state => state.counter)
 
-
+    const incHandler = () => {
+        dispatch(increment())
+    }
+    const resetHandler = () => {
+        dispatch(reset())
+    }
+    const changeTwoWindowVersion = () => {
+        dispatch(changeVersion2())
+    }
+    const setHandlerTwoWindow = () => {
+        dispatch(set2())
+    }
 
     return (
         <>
-            {!twoWindowVersion
+            {!counter.twoWindowVersion
                 ?
                 <div className="containBlock">
-                    <Display
-                        value={num}
-                        disablInc={disablInc}
-                        disablSet={disablSet}
-                        error={error}
-                        message={message}
-                    />
+                    <Display/>
                     <div className={"buttons"}>
                         <Button title={"SET"}
                                 onClickHandler={changeTwoWindowVersion}
-                                disable={twoWindowVersion}
+                                disable={counter.twoWindowVersion}
                         />
                         <Button
                             title={"INC"}
                             onClickHandler={incHandler}
-                            disable={disablInc}
+                            disable={counter.disablInc}
                         />
                         <Button
                             title={"RESET"}
                             onClickHandler={resetHandler}
-                            disable={disablRecet}
+                            disable={counter.disablReset}
                         />
                     </div>
                 </div>
                 :
                 <div className="containBlock">
-                    <Settings
-                        startValue={startValue}
-                        maxValue={maxValue}
-                        error={error}
-                        onChangeStartValue={onChangeStartValue}
-                        onChangeMaxValue={onChangeMaxValue}
-                    />
+                    <Settings/>
                     <div className={"buttons"}>
                         <Button title={"SET"}
                                 onClickHandler={setHandlerTwoWindow}
-                                disable={disablSet}
+                                disable={counter.disablSet}
                         />
                     </div>
                 </div>
